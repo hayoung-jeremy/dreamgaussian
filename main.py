@@ -4,6 +4,7 @@ import time
 import tqdm
 import numpy as np
 import dearpygui.dearpygui as dpg
+import sys
 
 import torch
 import torch.nn.functional as F
@@ -877,7 +878,7 @@ class GUI:
     def train(self, iters=500):
         if iters > 0:
             self.prepare_train()
-            for i in tqdm.trange(iters):
+            for i in tqdm.trange(iters, file=sys.stdout):
                 self.train_step()
             # do a last prune
             self.renderer.gaussians.prune(min_opacity=0.01, extent=1, max_screen_size=1)
